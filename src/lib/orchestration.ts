@@ -18,7 +18,8 @@ const MARKETS = [
 ];
 
 function pick<T>(seed: number, items: T[]): T {
-  return items[seed % items.length];
+  const idx = Math.abs(seed | 0) % items.length;
+  return items[idx];
 }
 
 function confidenceFromSources(
@@ -68,7 +69,7 @@ export async function runDemoResearch(input: {
   const verdicts: VerdictLabel[] = ["Opportunity", "Wait", "Crowded"];
   const verdict = pick(seed, verdicts);
   const { level, score } = confidenceFromSources(sources, 70 + (seed % 25));
-  const market = pick(seed >> 3, MARKETS);
+  const market = pick(seed >>> 3, MARKETS);
 
   const roadmapByVerdict: Record<
     VerdictLabel,
@@ -185,8 +186,8 @@ export async function runDemoResearch(input: {
         : "unknown",
       regionalInterest: [
         { country: market, score: 78 + (seed % 18) },
-        { country: pick(seed >> 5, MARKETS.filter((m) => m !== market)), score: 55 + (seed % 20) },
-        { country: pick(seed >> 7, MARKETS), score: 35 + (seed % 25) },
+        { country: pick(seed >>> 5, MARKETS.filter((m) => m !== market)), score: 55 + (seed % 20) },
+        { country: pick(seed >>> 7, MARKETS), score: 35 + (seed % 25) },
       ],
     },
     web: {
