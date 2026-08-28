@@ -1,7 +1,4 @@
-"use client";
-
 import Link from "next/link";
-import { useEffect, useState } from "react";
 import type { ValidationReport } from "@/lib/types";
 
 type ReportPayload = {
@@ -11,51 +8,8 @@ type ReportPayload = {
   report: ValidationReport;
 };
 
-export function ReportView({ id }: { id: string }) {
-  const [data, setData] = useState<ReportPayload | null>(null);
-  const [error, setError] = useState<string | null>(null);
-
-  useEffect(() => {
-    let cancelled = false;
-    (async () => {
-      try {
-        const res = await fetch(`/api/report/${id}`, { cache: "no-store" });
-        const json = await res.json();
-        if (!res.ok) {
-          if (!cancelled) setError(json.message || json.error || "Report unavailable");
-          return;
-        }
-        if (!cancelled) setData(json);
-      } catch {
-        if (!cancelled) setError("Could not load report");
-      }
-    })();
-    return () => {
-      cancelled = true;
-    };
-  }, [id]);
-
-  if (error) {
-    return (
-      <div className="report-shell">
-        <h1>Report unavailable</h1>
-        <p>{error}</p>
-        <Link className="btn" href={`/request/${id}`}>
-          Back to verdict
-        </Link>
-      </div>
-    );
-  }
-
-  if (!data) {
-    return (
-      <div className="report-shell">
-        <p className="eyebrow">Full report</p>
-        <h1>Loading findings…</h1>
-      </div>
-    );
-  }
-
+export function ReportView({ id, initial }: { id: string; initial: ReportPayload }) {
+  const data = initial;
   const r = data.report;
   const tone =
     r.verdict === "Opportunity" ? "win" : r.verdict === "Wait" ? "wait" : "skip";
@@ -103,7 +57,7 @@ export function ReportView({ id }: { id: string }) {
           <p className="meta">Direction: {r.trends.direction}</p>
           <ul className="trend-bars">
             {r.trends.regionalInterest.map((row) => (
-              <li key={row.country}>
+              <li key={`${row.country}-${row.score}`}>
                 <span>{row.country}</span>
                 <i style={{ width: `${row.score}%` }} />
                 <em>{row.score}</em>

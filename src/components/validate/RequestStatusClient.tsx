@@ -25,12 +25,20 @@ const STEPS = [
   "Synthesizing Quick Verdict",
 ];
 
-export function RequestStatusView({ id }: { id: string }) {
-  const [data, setData] = useState<StatusPayload | null>(null);
+export function RequestStatusClient({
+  id,
+  initial,
+}: {
+  id: string;
+  initial: StatusPayload;
+}) {
+  const [data, setData] = useState<StatusPayload>(initial);
   const [error, setError] = useState<string | null>(null);
   const [tick, setTick] = useState(0);
 
   useEffect(() => {
+    if (data.status !== "pending") return;
+
     let cancelled = false;
     let timer: ReturnType<typeof setTimeout>;
 
@@ -52,18 +60,18 @@ export function RequestStatusView({ id }: { id: string }) {
       }
     }
 
-    poll();
+    timer = setTimeout(poll, 800);
     return () => {
       cancelled = true;
       clearTimeout(timer);
     };
-  }, [id]);
+  }, [id, data.status]);
 
   useEffect(() => {
-    if (data?.status !== "pending") return;
+    if (data.status !== "pending") return;
     const t = setInterval(() => setTick((n) => n + 1), 1600);
     return () => clearInterval(t);
-  }, [data?.status]);
+  }, [data.status]);
 
   if (error) {
     return (
@@ -73,15 +81,6 @@ export function RequestStatusView({ id }: { id: string }) {
         <Link className="btn" href="/validate">
           Try again
         </Link>
-      </div>
-    );
-  }
-
-  if (!data) {
-    return (
-      <div className="status-panel">
-        <p className="eyebrow">Nexora</p>
-        <h1>Loading your request…</h1>
       </div>
     );
   }
