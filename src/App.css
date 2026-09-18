@@ -5,7 +5,7 @@
   top: 0;
   z-index: 40;
   backdrop-filter: blur(14px) saturate(1.1);
-  background: color-mix(in srgb, var(--paper-wash) 78%, transparent);
+  background: color-mix(in srgb, #0b0a09 82%, transparent);
   border-bottom: 1px solid var(--rule);
 }
 
@@ -35,7 +35,7 @@
   flex-shrink: 0;
   display: block;
   object-fit: contain;
-  filter: drop-shadow(0 2px 4px rgba(212, 95, 18, 0.2));
+  filter: drop-shadow(0 2px 8px rgba(232, 197, 71, 0.35));
 }
 
 .brand__name {
@@ -114,12 +114,12 @@
   display: grid;
   align-items: center;
   background:
-    radial-gradient(ellipse 55% 45% at 15% 20%, rgba(255, 236, 210, 0.45), transparent 60%),
-    radial-gradient(ellipse 40% 35% at 85% 75%, rgba(26, 20, 16, 0.14), transparent 55%),
-    radial-gradient(circle at 70% 25%, rgba(240, 120, 32, 0.12), transparent 35%),
-    linear-gradient(152deg, #dbb17a 0%, var(--cork) 38%, var(--cork-mid) 72%, var(--cork-dark) 100%);
-  border-bottom: 4px solid #8a6538;
-  box-shadow: inset 0 0 80px rgba(26, 20, 16, 0.18);
+    radial-gradient(ellipse 55% 45% at 15% 20%, rgba(232, 197, 71, 0.14), transparent 60%),
+    radial-gradient(ellipse 40% 35% at 85% 75%, rgba(0, 0, 0, 0.55), transparent 55%),
+    radial-gradient(circle at 70% 25%, rgba(201, 162, 39, 0.1), transparent 35%),
+    linear-gradient(152deg, #1c1814 0%, #12100e 38%, #0a0908 72%, #050504 100%);
+  border-bottom: 4px solid color-mix(in srgb, var(--brand) 55%, #2a2418);
+  box-shadow: inset 0 0 80px rgba(0, 0, 0, 0.45);
   padding: clamp(2.25rem, 5.5vw, 4rem) 0 clamp(2.75rem, 6.5vw, 4.5rem);
 }
 
@@ -129,16 +129,16 @@
   inset: 0;
   background-image:
     url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='120' height='120' filter='url(%23n)' opacity='0.07'/%3E%3C/svg%3E");
-  opacity: 0.7;
+  opacity: 0.55;
   pointer-events: none;
-  mix-blend-mode: multiply;
+  mix-blend-mode: soft-light;
 }
 
 .hero__board::after {
   content: "";
   position: absolute;
   inset: 12px;
-  border: 1px dashed rgba(255, 246, 230, 0.22);
+  border: 1px dashed rgba(232, 197, 71, 0.22);
   pointer-events: none;
 }
 
@@ -170,7 +170,7 @@
   width: clamp(56px, 8.5vw, 80px);
   height: auto;
   display: block;
-  filter: drop-shadow(0 4px 10px rgba(212, 95, 18, 0.28));
+  filter: drop-shadow(0 4px 14px rgba(232, 197, 71, 0.4));
   animation: logo-bob 4.5s ease-in-out infinite;
 }
 
@@ -182,8 +182,8 @@
   margin: 0 0 0.7rem;
   color: var(--ink);
   text-shadow:
-    0 1px 0 rgba(255, 249, 239, 0.4),
-    0 8px 24px rgba(26, 20, 16, 0.08);
+    0 0 40px rgba(232, 197, 71, 0.15),
+    0 8px 24px rgba(0, 0, 0, 0.35);
 }
 
 .hero__headline {
@@ -193,7 +193,10 @@
   line-height: 1.05;
   max-width: 14ch;
   margin: 0 0 1rem;
-  color: var(--ink-soft);
+  background: linear-gradient(120deg, var(--brand-soft), var(--brand) 50%, var(--brand-deep));
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
 }
 
 .hero__lede {
@@ -296,8 +299,8 @@
   bottom: 6%;
   width: min(100%, 240px);
   z-index: 2;
-  background: linear-gradient(165deg, #f7f3ee 0%, #efeae2 100%);
-  border: 1px solid #d9d0c4;
+  background: linear-gradient(165deg, #1a221c 0%, #141a16 100%);
+  border: 1px solid color-mix(in srgb, var(--whatsapp) 35%, #333);
   border-radius: 16px;
   padding: 0.85rem;
   box-shadow: 8px 14px 28px var(--shadow);
@@ -309,7 +312,7 @@
   align-items: center;
   gap: 0.5rem;
   margin-bottom: 0.7rem;
-  color: #075e54;
+  color: var(--whatsapp);
   font-weight: 700;
   font-size: 0.82rem;
 }
@@ -324,11 +327,11 @@
 }
 
 .whatsapp-handoff__bubble {
-  background: #dcf8c6;
+  background: #1f3d2c;
   border-radius: 12px 12px 4px 12px;
   padding: 0.6rem 0.75rem;
   font-size: 0.84rem;
-  color: #1a1612;
+  color: #e8f5e9;
   margin-left: auto;
   max-width: 94%;
   line-height: 1.4;
@@ -362,13 +365,13 @@
   height: 38px;
   border-radius: 50%;
   background: linear-gradient(145deg, var(--brand-soft), var(--brand-deep));
-  color: #fff;
+  color: #1a1408;
   display: grid;
   place-items: center;
   font-weight: 700;
   font-size: 0.8rem;
   flex-shrink: 0;
-  box-shadow: 0 2px 6px rgba(212, 95, 18, 0.3);
+  box-shadow: 0 2px 8px rgba(232, 197, 71, 0.35);
 }
 
 .applicant-chip__name {
@@ -517,7 +520,7 @@
   height: 9px;
   background: var(--brand);
   transform: rotate(45deg);
-  box-shadow: 1px 1px 0 rgba(212, 95, 18, 0.25);
+  box-shadow: 0 0 8px rgba(232, 197, 71, 0.35);
 }
 
 .sample-campaign {
@@ -590,9 +593,9 @@
   display: grid;
   gap: 1.75rem;
   background:
-    radial-gradient(ellipse 50% 60% at 100% 0%, rgba(37, 211, 102, 0.08), transparent 55%),
-    linear-gradient(165deg, color-mix(in srgb, var(--note) 92%, #e8f8ee), var(--note));
-  border: 1px solid color-mix(in srgb, var(--whatsapp) 22%, var(--note-edge));
+    radial-gradient(ellipse 50% 60% at 100% 0%, rgba(37, 211, 102, 0.1), transparent 55%),
+    linear-gradient(165deg, #161a17, #121410);
+  border: 1px solid color-mix(in srgb, var(--whatsapp) 28%, var(--note-edge));
   padding: clamp(1.6rem, 4.2vw, 2.75rem);
   box-shadow: 8px 14px 32px var(--shadow-soft);
   position: relative;
@@ -662,15 +665,15 @@
 
 .chat-mock {
   background:
-    radial-gradient(circle at 20% 10%, rgba(255, 255, 255, 0.35), transparent 40%),
-    #e5ddd5;
+    radial-gradient(circle at 20% 10%, rgba(255, 255, 255, 0.04), transparent 40%),
+    #1a221c;
   border-radius: 18px;
   padding: 1.1rem;
   min-height: 260px;
   display: flex;
   flex-direction: column;
   gap: 0.6rem;
-  box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.05);
+  box-shadow: inset 0 0 0 1px rgba(37, 211, 102, 0.12);
 }
 
 .chat-mock__msg {
@@ -679,29 +682,31 @@
   border-radius: 12px;
   font-size: 0.85rem;
   line-height: 1.45;
-  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.04);
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
 }
 
 .chat-mock__msg--in {
-  background: #fff;
+  background: #242820;
+  color: var(--ink);
   align-self: flex-start;
   border-top-left-radius: 3px;
 }
 
 .chat-mock__msg--out {
-  background: #dcf8c6;
+  background: #1f3d2c;
+  color: #e8f5e9;
   align-self: flex-end;
   border-top-right-radius: 3px;
 }
 
 .chat-mock__locked {
   margin-top: auto;
-  background: #fff;
+  background: #141814;
   border: 1px dashed var(--whatsapp-dark);
   border-radius: 12px;
   padding: 0.7rem 0.8rem;
   font-size: 0.8rem;
-  color: var(--whatsapp-dark);
+  color: var(--whatsapp);
   font-weight: 600;
 }
 
@@ -849,10 +854,10 @@
   margin-top: 0.5rem;
   padding: clamp(2rem, 5vw, 3rem) 1.5rem;
   background:
-    radial-gradient(ellipse 60% 50% at 50% 0%, rgba(255, 236, 210, 0.35), transparent 60%),
-    linear-gradient(160deg, color-mix(in srgb, var(--cork) 55%, var(--paper)), color-mix(in srgb, var(--cork-dark) 40%, var(--paper-deep)));
-  border: 2px solid #9a7544;
-  box-shadow: inset 0 0 40px rgba(26, 20, 16, 0.1), 0 12px 32px var(--shadow-soft);
+    radial-gradient(ellipse 60% 50% at 50% 0%, rgba(232, 197, 71, 0.16), transparent 60%),
+    linear-gradient(160deg, #1a1612, #0e0c0a);
+  border: 2px solid color-mix(in srgb, var(--brand) 50%, #2a2418);
+  box-shadow: inset 0 0 40px rgba(0, 0, 0, 0.35), 0 12px 32px var(--shadow-soft), 0 0 40px rgba(232, 197, 71, 0.06);
   position: relative;
 }
 
@@ -874,9 +879,9 @@
 .form-success {
   margin: 0;
   padding: 0.85rem 1rem;
-  background: color-mix(in srgb, var(--forest) 12%, var(--note));
-  border: 1px solid color-mix(in srgb, var(--forest) 30%, transparent);
-  color: var(--forest-deep);
+  background: color-mix(in srgb, var(--brand) 12%, var(--note));
+  border: 1px solid color-mix(in srgb, var(--brand) 35%, transparent);
+  color: var(--brand-soft);
   font-weight: 600;
 }
 
@@ -894,8 +899,8 @@
 .field select {
   width: 100%;
   padding: 0.75rem 0.85rem;
-  border: 1.5px solid var(--ink);
-  background: #fffdf8;
+  border: 1.5px solid var(--note-edge);
+  background: #12100e;
   color: var(--ink);
 }
 
@@ -903,6 +908,7 @@
 .field select:focus {
   outline: 2px solid var(--brand);
   outline-offset: 1px;
+  border-color: var(--brand);
 }
 
 /* Footer */
@@ -912,7 +918,7 @@
   padding: 2.25rem 0 2.75rem;
   color: var(--ink-muted);
   font-size: 0.9rem;
-  background: color-mix(in srgb, var(--paper-deep) 45%, transparent);
+  background: color-mix(in srgb, #050504 70%, transparent);
 }
 
 .footer__row {
@@ -1010,8 +1016,8 @@
   display: grid;
   place-items: center;
   padding: 1.25rem;
-  background: rgba(26, 20, 16, 0.48);
-  backdrop-filter: blur(6px);
+  background: rgba(0, 0, 0, 0.72);
+  backdrop-filter: blur(8px);
   animation: overlay-in 0.25s var(--ease) both;
 }
 
