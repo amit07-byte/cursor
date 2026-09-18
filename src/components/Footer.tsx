@@ -12,7 +12,7 @@ export default function Footer() {
         <nav className="footer__links" aria-label="Footer">
           <a href="/#how-it-works">How it works</a>
           <a href="/#why-whatsapp">Why WhatsApp</a>
-          <a href="/#waitlist">Waitlist</a>
+          <a href="/#get-started">Get started</a>
           <Link to="/signup/business">Businesses</Link>
           <Link to="/signup/creator">Creators</Link>
         </nav>

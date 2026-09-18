@@ -15,7 +15,7 @@ const faqs = [
   },
   {
     q: 'What cities is this live in?',
-    a: 'We’re launching neighborhood by neighborhood, starting with select NYC areas. If you’re elsewhere, join the waitlist with your city and role — we’ll open access as coverage expands.',
+    a: 'We’re launching neighborhood by neighborhood, starting with select NYC areas. Coverage expands city by city — check back or sign up and we’ll show what’s available near you.',
   },
 ]
 

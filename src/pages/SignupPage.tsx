@@ -57,7 +57,7 @@ export default function SignupPage({ role }: { role: Role }) {
             <h1>{content.title}</h1>
             <p>{content.lede}</p>
             {done ? (
-              <p className="waitlist__success" role="status">
+              <p className="form-success" role="status">
                 You’re in. We’ll email next steps to finish {role === 'business' ? 'your first campaign' : 'setting up discovery'}.
               </p>
             ) : (

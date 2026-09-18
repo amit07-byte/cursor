@@ -27,4 +27,3 @@ npm run preview
 | `/` | Landing |
 | `/signup/business` | Business signup → first campaign |
 | `/signup/creator` | Creator signup → discovery |
-| `/#waitlist` | Waitlist (email + city + role) |

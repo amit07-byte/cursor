@@ -64,8 +64,8 @@ export default function SocialProof() {
           </h3>
           <p>
             Local businesses need content. Creators need real briefs nearby. Both already talk on WhatsApp.
-            Pathly is the introduction — a neighborhood board, not another feed to babysit. Join the waitlist
-            if your city isn’t live yet.
+            Pathly is the introduction — a neighborhood board, not another feed to babysit. Pick a path
+            above when you’re ready to post or apply.
           </p>
         </aside>
       </div>
