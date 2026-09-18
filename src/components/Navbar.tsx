@@ -27,11 +27,11 @@ export default function Navbar() {
             <a href="/#faq">FAQ</a>
           </li>
         </ul>
-        <div className="nav__cta btn-row">
+        <div className="nav__cta">
           <Link className="btn btn--ghost" to="/signup/business">
             I’m a business
           </Link>
-          <Link className="btn" to="/signup/creator">
+          <Link className="btn btn--ghost" to="/signup/creator">
             I’m a creator
           </Link>
         </div>

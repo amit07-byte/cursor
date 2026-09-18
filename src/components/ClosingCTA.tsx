@@ -21,7 +21,7 @@ export default function ClosingCTA() {
           Businesses post campaigns. Creators browse nearby. Same page, two doors — equal weight.
         </p>
         <div className="btn-row">
-          <Link className="btn btn--equal" to="/signup/business">
+          <Link className="btn btn--ghost btn--equal" to="/signup/business">
             I’m a business
           </Link>
           <Link className="btn btn--ghost btn--equal" to="/signup/creator">

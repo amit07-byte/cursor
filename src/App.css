@@ -65,10 +65,21 @@
 
 .nav__cta {
   display: none;
+  align-items: center;
+  gap: 0.55rem;
+}
+
+.nav__cta .btn {
+  padding: 0.55rem 0.9rem;
+  font-size: 0.85rem;
+  box-shadow: 2px 2px 0 var(--shadow);
 }
 
 @media (min-width: 860px) {
-  .nav__links,
+  .nav__links {
+    display: flex;
+  }
+
   .nav__cta {
     display: flex;
   }
@@ -164,6 +175,42 @@
 .hero__visual {
   position: relative;
   min-height: 320px;
+}
+
+@media (max-width: 959px) {
+  .hero__board {
+    min-height: auto;
+  }
+
+  .hero__visual {
+    min-height: 300px;
+    margin-top: 0.5rem;
+  }
+
+  .campaign-card {
+    width: min(100%, 240px);
+  }
+
+  .applicant-chip {
+    left: 2%;
+    bottom: 8%;
+  }
+
+  .whatsapp-handoff {
+    right: 0;
+    bottom: 0;
+    width: min(100%, 210px);
+  }
+}
+
+@media (max-width: 420px) {
+  .applicant-chip {
+    display: none;
+  }
+
+  .hero__visual {
+    min-height: 280px;
+  }
 }
 
 .campaign-card {

@@ -15,7 +15,7 @@ export default function Hero() {
               the match, then gets out of the way.
             </p>
             <div className="btn-row" role="group" aria-label="Choose your path">
-              <Link className="btn btn--equal" to="/signup/business">
+              <Link className="btn btn--ghost btn--equal" to="/signup/business">
                 I’m a business
               </Link>
               <Link className="btn btn--ghost btn--equal" to="/signup/creator">
