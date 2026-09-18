@@ -83,7 +83,7 @@
 }
 
 .nav__cta {
-  display: none;
+  display: flex;
   align-items: center;
   gap: 0.55rem;
 }
@@ -96,10 +96,6 @@
 
 @media (min-width: 860px) {
   .nav__links {
-    display: flex;
-  }
-
-  .nav__cta {
     display: flex;
   }
 }
@@ -1003,4 +999,98 @@
 .back-link:hover {
   color: var(--brand-deep);
   text-decoration: underline;
+}
+
+/* Waitlist modal */
+
+.waitlist-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 80;
+  display: grid;
+  place-items: center;
+  padding: 1.25rem;
+  background: rgba(26, 20, 16, 0.48);
+  backdrop-filter: blur(6px);
+  animation: overlay-in 0.25s var(--ease) both;
+}
+
+.waitlist-dialog {
+  width: min(100%, 420px);
+  padding: 1.75rem 1.55rem 1.65rem;
+  animation: dialog-in 0.35s var(--ease) both;
+}
+
+.waitlist-dialog__close {
+  position: absolute;
+  top: 0.65rem;
+  right: 0.75rem;
+  border: none;
+  background: transparent;
+  color: var(--ink-muted);
+  font-size: 1.6rem;
+  line-height: 1;
+  cursor: pointer;
+  padding: 0.2rem 0.4rem;
+}
+
+.waitlist-dialog__close:hover {
+  color: var(--ink);
+}
+
+.waitlist-dialog__title {
+  font-size: 2.4rem;
+  letter-spacing: 0.04em;
+  margin: 0 0 0.45rem;
+}
+
+.waitlist-dialog__lede {
+  margin: 0 0 1.25rem;
+  color: var(--ink-soft);
+  font-size: 0.98rem;
+}
+
+.waitlist-form {
+  display: grid;
+  gap: 0.85rem;
+}
+
+.waitlist-form .btn {
+  width: 100%;
+  margin-top: 0.25rem;
+}
+
+.footer__get-app {
+  border: none;
+  background: none;
+  padding: 0;
+  font: inherit;
+  font-weight: 600;
+  color: var(--brand-deep);
+  cursor: pointer;
+  text-decoration: none;
+}
+
+.footer__get-app:hover {
+  text-decoration: underline;
+}
+
+@keyframes overlay-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes dialog-in {
+  from {
+    opacity: 0;
+    transform: translateY(16px) scale(0.98);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
 }

@@ -1,4 +1,4 @@
-import { Link } from 'react-router-dom'
+import GetAppButton from './GetAppButton'
 import { useReveal } from '../hooks/useReveal'
 
 export default function ClosingCTA() {
@@ -9,17 +9,12 @@ export default function ClosingCTA() {
       <div className={`container ${className}`}>
         <div className="closing-board">
           <p className="section-kicker">Your move</p>
-          <h2 className="section-title">Pick a path.</h2>
+          <h2 className="section-title">Get the app.</h2>
           <p className="section-lede">
-            Businesses post campaigns. Creators browse nearby. Same page, two doors — equal weight.
+            Join the waitlist with your name and email. We’ll let you know when Pathly is ready.
           </p>
-          <div className="btn-row">
-            <Link className="btn btn--brand btn--equal" to="/signup/business">
-              I’m a business
-            </Link>
-            <Link className="btn btn--ghost btn--equal" to="/signup/creator">
-              I’m a creator
-            </Link>
+          <div className="btn-row" style={{ justifyContent: 'center' }}>
+            <GetAppButton className="btn btn--brand btn--equal" />
           </div>
         </div>
       </div>

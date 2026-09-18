@@ -1,4 +1,4 @@
-import { Link } from 'react-router-dom'
+import GetAppButton from './GetAppButton'
 
 export default function Hero() {
   return (
@@ -17,13 +17,8 @@ export default function Hero() {
               Local businesses post campaigns. Nearby creators apply. Pathly makes the match — then gets
               out of the way.
             </p>
-            <div className="btn-row" role="group" aria-label="Choose your path">
-              <Link className="btn btn--brand btn--equal" to="/signup/business">
-                I’m a business
-              </Link>
-              <Link className="btn btn--ghost btn--equal" to="/signup/creator">
-                I’m a creator
-              </Link>
+            <div className="btn-row">
+              <GetAppButton className="btn btn--brand btn--equal" />
             </div>
           </div>
 

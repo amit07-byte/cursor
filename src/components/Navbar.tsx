@@ -1,5 +1,6 @@
-import { Link } from 'react-router-dom'
 import BrandLogo from './BrandLogo'
+import GetAppButton from './GetAppButton'
+import { Link } from 'react-router-dom'
 
 export default function Navbar() {
   return (
@@ -26,12 +27,7 @@ export default function Navbar() {
           </li>
         </ul>
         <div className="nav__cta">
-          <Link className="btn btn--ghost" to="/signup/business">
-            I’m a business
-          </Link>
-          <Link className="btn btn--brand" to="/signup/creator">
-            I’m a creator
-          </Link>
+          <GetAppButton className="btn btn--brand" />
         </div>
       </div>
     </header>

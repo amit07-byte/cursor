@@ -1,5 +1,5 @@
-import { Link } from 'react-router-dom'
 import BrandLogo from './BrandLogo'
+import GetAppButton from './GetAppButton'
 
 export default function Footer() {
   return (
@@ -12,9 +12,8 @@ export default function Footer() {
         <nav className="footer__links" aria-label="Footer">
           <a href="/#how-it-works">How it works</a>
           <a href="/#why-whatsapp">Why WhatsApp</a>
-          <a href="/#get-started">Get started</a>
-          <Link to="/signup/business">Businesses</Link>
-          <Link to="/signup/creator">Creators</Link>
+          <a href="/#faq">FAQ</a>
+          <GetAppButton className="footer__get-app" />
         </nav>
       </div>
     </footer>

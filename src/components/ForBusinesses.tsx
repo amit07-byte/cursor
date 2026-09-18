@@ -1,4 +1,4 @@
-import { Link } from 'react-router-dom'
+import GetAppButton from './GetAppButton'
 import { useReveal } from '../hooks/useReveal'
 
 export default function ForBusinesses() {
@@ -21,9 +21,7 @@ export default function ForBusinesses() {
             <li>A simple dashboard tracks what’s live, what’s closed, and who you’ve worked with.</li>
           </ul>
           <div className="btn-row" style={{ marginTop: '1.5rem' }}>
-            <Link className="btn" to="/signup/business">
-              Post your first campaign
-            </Link>
+            <GetAppButton className="btn btn--brand" />
           </div>
         </div>
 

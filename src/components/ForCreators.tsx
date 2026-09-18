@@ -1,4 +1,4 @@
-import { Link } from 'react-router-dom'
+import GetAppButton from './GetAppButton'
 import { useReveal } from '../hooks/useReveal'
 
 const nearby = [
@@ -27,9 +27,7 @@ export default function ForCreators() {
             <li>An Applied list tracks awaiting reply, on WhatsApp, and completed.</li>
           </ul>
           <div className="btn-row" style={{ marginTop: '1.5rem' }}>
-            <Link className="btn" to="/signup/creator">
-              Browse campaigns near you
-            </Link>
+            <GetAppButton className="btn btn--brand" />
           </div>
         </div>
 
