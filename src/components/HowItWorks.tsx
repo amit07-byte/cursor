@@ -36,7 +36,8 @@ export default function HowItWorks() {
               key={step.num}
               className={`note step${i === 1 ? ' note--tilt-right' : i === 2 ? ' note--tilt-left' : ''}`}
             >
-              <span className="pin" style={{ top: '-6px', left: `${28 + i * 12}%` }} />
+              {i === 1 ? <span className="tape tape--skew" /> : <span className="tape" />}
+              <span className={`pin${i === 0 ? ' pin--brand' : i === 2 ? ' pin--alt' : ''}`} style={{ top: '-7px', left: `${28 + i * 12}%` }} />
               <div className="step__num">{step.num}</div>
               <h3 className="step__title">{step.title}</h3>
               <p className="step__body">{step.body}</p>

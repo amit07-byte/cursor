@@ -7,18 +7,20 @@ export default function ClosingCTA() {
   return (
     <section className="section closing" id="get-started" ref={ref}>
       <div className={`container ${className}`}>
-        <p className="section-kicker">Your move</p>
-        <h2 className="section-title">Pick a path.</h2>
-        <p className="section-lede">
-          Businesses post campaigns. Creators browse nearby. Same page, two doors — equal weight.
-        </p>
-        <div className="btn-row">
-          <Link className="btn btn--ghost btn--equal" to="/signup/business">
-            I’m a business
-          </Link>
-          <Link className="btn btn--ghost btn--equal" to="/signup/creator">
-            I’m a creator
-          </Link>
+        <div className="closing-board">
+          <p className="section-kicker">Your move</p>
+          <h2 className="section-title">Pick a path.</h2>
+          <p className="section-lede">
+            Businesses post campaigns. Creators browse nearby. Same page, two doors — equal weight.
+          </p>
+          <div className="btn-row">
+            <Link className="btn btn--brand btn--equal" to="/signup/business">
+              I’m a business
+            </Link>
+            <Link className="btn btn--ghost btn--equal" to="/signup/creator">
+              I’m a creator
+            </Link>
+          </div>
         </div>
       </div>
     </section>

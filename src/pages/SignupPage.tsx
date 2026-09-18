@@ -75,7 +75,7 @@ export default function SignupPage({ role }: { role: Role }) {
                     />
                   </div>
                 ))}
-                <button className="btn btn--forest" type="submit">
+                <button className="btn btn--brand" type="submit">
                   {content.next}
                 </button>
               </form>

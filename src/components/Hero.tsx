@@ -7,18 +7,18 @@ export default function Hero() {
         <div className="container hero__grid">
           <div className="hero__copy">
             <p className="hero__logo-row" aria-hidden="true">
-              <img className="hero__logo" src="/pathly-mark.png" alt="" width={72} height={58} decoding="async" />
+              <img className="hero__logo" src="/pathly-mark.png" alt="" width={80} height={64} decoding="async" />
             </p>
             <h1 className="hero__brand" id="hero-brand">
               Pathly
             </h1>
             <p className="hero__headline">Post the work. Get matched.</p>
             <p className="hero__lede">
-              Businesses post campaigns, nearby creators apply, and Pathly makes the match — then gets out
-              of the way.
+              Local businesses post campaigns. Nearby creators apply. Pathly makes the match — then gets
+              out of the way.
             </p>
             <div className="btn-row" role="group" aria-label="Choose your path">
-              <Link className="btn btn--ghost btn--equal" to="/signup/business">
+              <Link className="btn btn--brand btn--equal" to="/signup/business">
                 I’m a business
               </Link>
               <Link className="btn btn--ghost btn--equal" to="/signup/creator">
@@ -28,21 +28,22 @@ export default function Hero() {
           </div>
 
           <div className="hero__visual" aria-hidden="true">
-            <article className="note note--tilt-left campaign-card" style={{ marginLeft: '4%' }}>
-              <span className="pin" style={{ top: '-7px', left: '42%' }} />
+            <article className="note note--tilt-left campaign-card" style={{ marginLeft: '5%' }}>
+              <span className="tape" />
+              <span className="pin pin--brand" style={{ top: '-8px', left: '42%' }} />
               <div className="campaign-card__meta">
                 <span>0.4 mi</span>
                 <span>Cafe</span>
               </div>
               <h2 className="campaign-card__title">Reel + store visit</h2>
-              <p style={{ margin: 0, color: 'var(--ink-soft)', fontSize: '0.9rem' }}>
+              <p style={{ margin: 0, color: 'var(--ink-soft)', fontSize: '0.92rem' }}>
                 Morning rush vibe, 30–45 sec. Product + cash.
               </p>
               <span className="campaign-card__offer">$120 + free drinks</span>
             </article>
 
             <article className="note note--tilt-right applicant-chip">
-              <span className="pin pin--alt" style={{ top: '-6px', right: '18%' }} />
+              <span className="pin pin--alt" style={{ top: '-7px', right: '16%' }} />
               <div className="applicant-chip__row">
                 <div className="applicant-chip__avatar">JL</div>
                 <div>

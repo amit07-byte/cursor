@@ -29,7 +29,7 @@ export default function Navbar() {
           <Link className="btn btn--ghost" to="/signup/business">
             I’m a business
           </Link>
-          <Link className="btn btn--ghost" to="/signup/creator">
+          <Link className="btn btn--brand" to="/signup/creator">
             I’m a creator
           </Link>
         </div>
