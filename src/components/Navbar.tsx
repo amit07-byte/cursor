@@ -1,14 +1,12 @@
 import { Link } from 'react-router-dom'
+import BrandLogo from './BrandLogo'
 
 export default function Navbar() {
   return (
     <header className="site-header">
       <div className="container nav">
-        <Link className="brand" to="/" aria-label="Pathly home">
-          <span className="brand__mark" aria-hidden="true">
-            P
-          </span>
-          <span className="brand__name">Pathly</span>
+        <Link className="brand-link" to="/" aria-label="Pathly home">
+          <BrandLogo size={40} />
         </Link>
         <ul className="nav__links">
           <li>

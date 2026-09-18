@@ -1,14 +1,13 @@
 import { Link } from 'react-router-dom'
+import BrandLogo from './BrandLogo'
 
 export default function Footer() {
   return (
     <footer className="site-footer">
       <div className="container footer__row">
-        <div>
-          <strong style={{ fontFamily: 'var(--font-display)', fontSize: '1.35rem', letterSpacing: '0.05em' }}>
-            Pathly
-          </strong>
-          <div>A neighborhood board for local campaigns.</div>
+        <div className="footer__brand">
+          <BrandLogo size={32} />
+          <div className="footer__tagline">A neighborhood board for local campaigns.</div>
         </div>
         <nav className="footer__links" aria-label="Footer">
           <a href="/#how-it-works">How it works</a>

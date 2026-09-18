@@ -6,6 +6,9 @@ export default function Hero() {
       <div className="hero__board">
         <div className="container hero__grid">
           <div className="hero__copy">
+            <p className="hero__logo-row" aria-hidden="true">
+              <img className="hero__logo" src="/pathly-mark.png" alt="" width={72} height={58} decoding="async" />
+            </p>
             <h1 className="hero__brand" id="hero-brand">
               Pathly
             </h1>
