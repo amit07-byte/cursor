@@ -12,10 +12,10 @@ export default function Hero() {
             <h1 className="hero__brand" id="hero-brand">
               Pathly
             </h1>
-            <p className="hero__headline">Post the work. Get matched. Move to WhatsApp.</p>
+            <p className="hero__headline">Post the work. Get matched.</p>
             <p className="hero__lede">
-              Businesses post campaigns, nearby creators apply, and deals move to WhatsApp — Pathly makes
-              the match, then gets out of the way.
+              Businesses post campaigns, nearby creators apply, and Pathly makes the match — then gets out
+              of the way.
             </p>
             <div className="btn-row" role="group" aria-label="Choose your path">
               <Link className="btn btn--ghost btn--equal" to="/signup/business">

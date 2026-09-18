@@ -4,7 +4,7 @@ Landing page for **Pathly** — a two-sided platform that connects local busines
 
 ## Messaging
 
-> Post the work. Get matched. Move to WhatsApp.
+> Post the work. Get matched.
 
 ## Develop
 

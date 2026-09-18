@@ -13,7 +13,7 @@ const steps = [
   },
   {
     num: '03',
-    title: 'Move to WhatsApp and get it done',
+    title: 'Hand off and get it done',
     body: 'Tap Message on WhatsApp. The brief is already locked, so you’re coordinating — not renegotiating.',
   },
 ]
