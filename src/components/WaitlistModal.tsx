@@ -1,10 +1,14 @@
 import { useEffect, useId, useRef, useState } from 'react'
 import type { FormEvent } from 'react'
 import { useWaitlist } from '../hooks/useWaitlist'
+import { submitWaitlist } from '../lib/waitlist'
+
+type Status = 'idle' | 'loading' | 'success' | 'error'
 
 export default function WaitlistModal() {
   const { open, closeWaitlist } = useWaitlist()
-  const [submitted, setSubmitted] = useState(false)
+  const [status, setStatus] = useState<Status>('idle')
+  const [errorMessage, setErrorMessage] = useState('')
   const titleId = useId()
   const nameRef = useRef<HTMLInputElement>(null)
 
@@ -14,7 +18,7 @@ export default function WaitlistModal() {
     const previouslyFocused = document.activeElement as HTMLElement | null
     const focusTimer = window.setTimeout(() => nameRef.current?.focus(), 0)
     const onKey = (e: KeyboardEvent) => {
-      if (e.key === 'Escape') closeWaitlist()
+      if (e.key === 'Escape' && status !== 'loading') closeWaitlist()
     }
     document.addEventListener('keydown', onKey)
     const prevOverflow = document.body.style.overflow
@@ -26,16 +30,41 @@ export default function WaitlistModal() {
       document.body.style.overflow = prevOverflow
       previouslyFocused?.focus?.()
     }
-  }, [open, closeWaitlist])
+  }, [open, closeWaitlist, status])
 
   function handleClose() {
-    setSubmitted(false)
+    if (status === 'loading') return
+    setStatus('idle')
+    setErrorMessage('')
     closeWaitlist()
   }
 
-  function onSubmit(e: FormEvent<HTMLFormElement>) {
+  async function onSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault()
-    setSubmitted(true)
+    const form = e.currentTarget
+    const data = new FormData(form)
+    const name = String(data.get('name') || '').trim()
+    const email = String(data.get('email') || '').trim()
+    const honey = String(data.get('company') || '').trim()
+
+    if (honey) {
+      setStatus('success')
+      return
+    }
+
+    if (!name || !email) return
+
+    setStatus('loading')
+    setErrorMessage('')
+
+    try {
+      await submitWaitlist({ name, email })
+      setStatus('success')
+      form.reset()
+    } catch (err) {
+      setStatus('error')
+      setErrorMessage(err instanceof Error ? err.message : 'Something went wrong. Please try again.')
+    }
   }
 
   if (!open) return null
@@ -51,7 +80,13 @@ export default function WaitlistModal() {
       <div className="note waitlist-dialog" role="dialog" aria-modal="true" aria-labelledby={titleId}>
         <span className="pin pin--brand" style={{ top: '-8px', left: '50%', transform: 'translateX(-50%)' }} />
         <span className="tape" />
-        <button type="button" className="waitlist-dialog__close" onClick={handleClose} aria-label="Close">
+        <button
+          type="button"
+          className="waitlist-dialog__close"
+          onClick={handleClose}
+          aria-label="Close"
+          disabled={status === 'loading'}
+        >
           ×
         </button>
         <p className="section-kicker">Early access</p>
@@ -62,12 +97,16 @@ export default function WaitlistModal() {
           Join the waitlist. We’ll email you when Pathly is ready to download.
         </p>
 
-        {submitted ? (
+        {status === 'success' ? (
           <p className="form-success" role="status">
             You’re on the list. Watch your inbox — we’ll be in touch soon.
           </p>
         ) : (
           <form className="waitlist-form" onSubmit={onSubmit}>
+            <div className="field waitlist-honey" aria-hidden="true">
+              <label htmlFor="waitlist-company">Company</label>
+              <input id="waitlist-company" name="company" type="text" tabIndex={-1} autoComplete="off" />
+            </div>
             <div className="field">
               <label htmlFor="waitlist-name">Name</label>
               <input
@@ -78,6 +117,7 @@ export default function WaitlistModal() {
                 autoComplete="name"
                 placeholder="Alex Rivera"
                 required
+                disabled={status === 'loading'}
               />
             </div>
             <div className="field">
@@ -89,10 +129,16 @@ export default function WaitlistModal() {
                 autoComplete="email"
                 placeholder="alex@email.com"
                 required
+                disabled={status === 'loading'}
               />
             </div>
-            <button className="btn btn--brand" type="submit">
-              Join the waitlist
+            {status === 'error' ? (
+              <p className="form-error" role="alert">
+                {errorMessage}
+              </p>
+            ) : null}
+            <button className="btn btn--brand" type="submit" disabled={status === 'loading'}>
+              {status === 'loading' ? 'Joining…' : 'Join the waitlist'}
             </button>
           </form>
         )}

@@ -876,13 +876,29 @@
   z-index: 1;
 }
 
-.form-success {
+.form-error {
   margin: 0;
-  padding: 0.85rem 1rem;
-  background: color-mix(in srgb, var(--brand) 12%, var(--note));
-  border: 1px solid color-mix(in srgb, var(--brand) 35%, transparent);
-  color: var(--brand-soft);
+  padding: 0.75rem 0.9rem;
+  background: color-mix(in srgb, #c44b3c 18%, var(--note));
+  border: 1px solid color-mix(in srgb, #c44b3c 45%, transparent);
+  color: #ffb4a8;
   font-weight: 600;
+  font-size: 0.9rem;
+}
+
+.waitlist-honey {
+  position: absolute;
+  left: -10000px;
+  top: auto;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+}
+
+.waitlist-form .btn:disabled,
+.waitlist-dialog__close:disabled {
+  opacity: 0.65;
+  cursor: not-allowed;
 }
 
 .field label {
