@@ -4,34 +4,34 @@ export default function WhyWhatsApp() {
   const { ref, className } = useReveal<HTMLElement>()
 
   return (
-    <section className="section whatsapp-section" id="why-whatsapp" ref={ref}>
+    <section className="section whatsapp-section" id="why-chat" ref={ref}>
       <div className={`container ${className}`}>
         <div className="whatsapp-panel">
           <div>
             <div className="whatsapp-badge">
               <span className="whatsapp-badge__icon" aria-hidden="true" />
-              Why WhatsApp
+              Why in-app chat
             </div>
             <h2 className="section-title" style={{ maxWidth: '18ch' }}>
-              We remove a step. We don’t skip one.
+              Connection first. Payments later.
             </h2>
             <p className="section-lede" style={{ marginBottom: '0.5rem' }}>
-              Pathly handles discovery and qualification. WhatsApp handles the conversation — the same way
-              it would if a friend introduced you. No new inbox to check.
+              MVP chat is plain messaging — no AI drafts, no escrow. We validate that a join → chat handoff
+              is enough friction reduction to get deals started.
             </p>
             <div className="split-points">
               <article>
-                <h3>Locked in before chat</h3>
+                <h3>Join opens the thread</h3>
                 <p>
-                  Deliverable and payout are agreed on Pathly first. WhatsApp is for timing, references, and
-                  getting the work done — not renegotiating the deal in DMs.
+                  When a creator joins a campaign, Pathly creates a connection and drops both sides into the
+                  same conversation. No cold DM, no agency intro.
                 </p>
               </article>
               <article>
-                <h3>A feature, not a shortcut</h3>
+                <h3>Negotiate on your terms</h3>
                 <p>
-                  Both sides already live on WhatsApp. Pathly’s job is the match. After that, we get out of
-                  the way on purpose.
+                  Rate, deliverables, timeline, and payment stay between you. Pathly doesn’t process money
+                  in v1 — on purpose.
                 </p>
               </article>
             </div>
@@ -42,10 +42,10 @@ export default function WhyWhatsApp() {
               Hi Jordan — loved your cafe reel last week. Saturday 10am still good for the Harbor shoot?
             </div>
             <div className="chat-mock__msg chat-mock__msg--out">
-              Yes! I’ll bring the brief we locked on Pathly. See you then.
+              Yes! My rate for a 40s reel is $150. I can send a draft cut by Sunday night.
             </div>
             <div className="chat-mock__locked">
-              Agreed on Pathly: Reel + store visit · $120 + drinks
+              Campaign on Pathly: Reel + store visit · $150 budget · Food & drink
             </div>
           </div>
         </div>

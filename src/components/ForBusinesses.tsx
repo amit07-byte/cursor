@@ -9,19 +9,19 @@ export default function ForBusinesses() {
       <div className={`container audience-grid ${className}`}>
         <div>
           <p className="section-kicker">For businesses</p>
-          <h2 className="section-title">Post a campaign. Choose who you message.</h2>
+          <h2 className="section-title">Post a campaign. Chat with creators who join.</h2>
           <p className="section-lede">
-            Content without an agency retainer or cold DMs. You set the brief, see real applicants, and tap
-            into WhatsApp only when someone looks right.
+            Find creators for promotional content without an agency retainer or cold DMs. Describe what you
+            need, get joins, and negotiate in Pathly chat.
           </p>
           <ul className="feature-list">
-            <li>Campaign in a few minutes: category, deliverable, and offer (cash, product, or both).</li>
-            <li>Applicants arrive with follower count, niche, and past work — not blind pitches.</li>
-            <li>You choose who to message. Nothing is automatic.</li>
-            <li>A simple dashboard tracks what’s live, what’s closed, and who you’ve worked with.</li>
+            <li>Campaign in minutes: goal, niche, deliverable, budget, and deadline.</li>
+            <li>Email alert when a creator joins — then open the thread.</li>
+            <li>Talk rate and deliverables directly. No forced payment flow.</li>
+            <li>Close or leave campaigns active from your dashboard.</li>
           </ul>
           <div className="btn-row" style={{ marginTop: '1.5rem' }}>
-            <GetAppButton className="btn btn--brand" />
+            <GetAppButton className="btn btn--brand">Start as a business</GetAppButton>
           </div>
         </div>
 
@@ -35,20 +35,20 @@ export default function ForBusinesses() {
           </h3>
           <dl>
             <div>
-              <dt>Category</dt>
-              <dd>Salon · Williamsburg</dd>
+              <dt>Niche</dt>
+              <dd>Beauty</dd>
             </div>
             <div>
               <dt>Deliverable</dt>
-              <dd>6 stills for Instagram + Stories mention</dd>
+              <dd>Static post + Stories mention</dd>
             </div>
             <div>
-              <dt>Offer</dt>
-              <dd>$180 or cut + color + $60</dd>
+              <dt>Budget</dt>
+              <dd>$180</dd>
             </div>
             <div>
               <dt>Status</dt>
-              <dd>4 applicants · you pick who to WhatsApp</dd>
+              <dd>Active · joins open chat</dd>
             </div>
           </dl>
         </aside>

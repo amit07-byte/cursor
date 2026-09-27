@@ -1,16 +1,17 @@
-import { useWaitlist } from '../hooks/useWaitlist'
+import { Link } from 'react-router-dom'
 
 type GetAppButtonProps = {
   className?: string
   children?: string
 }
 
-export default function GetAppButton({ className = 'btn btn--brand', children = 'Get app' }: GetAppButtonProps) {
-  const { openWaitlist } = useWaitlist()
-
+export default function GetAppButton({
+  className = 'btn btn--brand',
+  children = 'Open Pathly',
+}: GetAppButtonProps) {
   return (
-    <button type="button" className={className} onClick={openWaitlist}>
+    <Link className={className} to="/auth">
       {children}
-    </button>
+    </Link>
   )
 }

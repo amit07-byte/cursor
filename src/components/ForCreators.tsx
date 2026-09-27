@@ -1,10 +1,10 @@
 import GetAppButton from './GetAppButton'
 import { useReveal } from '../hooks/useReveal'
 
-const nearby = [
-  { name: 'Harbor Roasters', dist: '0.4 mi', offer: '$120 + drinks' },
-  { name: 'Bloom Studio', dist: '0.9 mi', offer: 'Product + $90' },
-  { name: 'Northside Books', dist: '1.2 mi', offer: '$75 cash' },
+const open = [
+  { name: 'Harbor Roasters', niche: 'Food & drink', offer: '$150' },
+  { name: 'Northside Fitness', niche: 'Fitness', offer: '$120' },
+  { name: 'Bloom Studio', niche: 'Beauty', offer: '$180' },
 ]
 
 export default function ForCreators() {
@@ -15,36 +15,36 @@ export default function ForCreators() {
       <div className={`container audience-grid ${className}`} style={{ direction: 'rtl' }}>
         <div style={{ direction: 'ltr' }}>
           <p className="section-kicker">For creators</p>
-          <h2 className="section-title">Real briefs nearby. No cold outreach.</h2>
+          <h2 className="section-title">Paid brand work without cold DMs.</h2>
           <p className="section-lede">
-            Open campaigns sorted by distance, offer shown before you apply. Once a business picks you, the
-            thread opens on WhatsApp — you’re never waiting on yet another app notification.
+            Browse open campaigns that match your niche and platform. Join the ones that fit, then negotiate
+            in chat — no agent required.
           </p>
           <ul className="feature-list">
-            <li>Discovery is local: distance first, not a global feed.</li>
-            <li>Clear deliverable and payout before you shoot anything.</li>
-            <li>Apply to what fits your niche — skip the strangers in your DMs.</li>
-            <li>An Applied list tracks awaiting reply, on WhatsApp, and completed.</li>
+            <li>Filter by niche, platform, deliverable type, and budget range.</li>
+            <li>Budget and brief shown before you join.</li>
+            <li>One tap Join opens chat with the business.</li>
+            <li>Set your starting rate on your profile so businesses know your floor.</li>
           </ul>
           <div className="btn-row" style={{ marginTop: '1.5rem' }}>
-            <GetAppButton className="btn btn--brand" />
+            <GetAppButton className="btn btn--brand">Start as a creator</GetAppButton>
           </div>
         </div>
 
-        <aside className="note note--tilt-left" style={{ direction: 'ltr' }} aria-label="Nearby campaigns">
+        <aside className="note note--tilt-left" style={{ direction: 'ltr' }} aria-label="Open campaigns">
           <span className="pin" style={{ top: '-6px', left: '36%' }} />
           <p className="section-kicker" style={{ marginBottom: '0.5rem' }}>
-            Near you
+            Open now
           </p>
           <h3 className="campaign-card__title" style={{ fontSize: '1.85rem', marginBottom: '0.85rem' }}>
-            Open campaigns
+            Campaign feed
           </h3>
           <div className="discovery-stack">
-            {nearby.map((item) => (
+            {open.map((item) => (
               <div className="discovery-item" key={item.name}>
                 <div>
                   <strong>{item.name}</strong>
-                  <span>{item.dist}</span>
+                  <span>{item.niche}</span>
                 </div>
                 <div className="discovery-item__offer">{item.offer}</div>
               </div>

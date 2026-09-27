@@ -1,8 +1,10 @@
 # Pathly
 
-Landing page for **Pathly** — local businesses post campaigns, nearby creators apply, deals move to WhatsApp.
+MVP marketplace connecting **businesses** and **content creators**.
 
-> Post the work. Get matched.
+Businesses post campaigns. Creators browse/filter the open feed, join campaigns that fit, and negotiate in in-app chat. No payments or escrow in v1.
+
+> Post the work. Start the chat.
 
 ## Develop
 
@@ -18,17 +20,43 @@ npm run build
 npm run preview
 ```
 
-## Waitlist
+## Demo accounts
 
-The **Get app** button opens a modal. Submissions are emailed to **amrai0583@gmail.com** via [FormSubmit](https://formsubmit.co).
+All seeded passwords: `pathly123`
 
-**First time only:** FormSubmit sends an activation email to that inbox. Click the confirm link once. After that, every signup emails you automatically (name + email).
+| Role | Email |
+|------|--------|
+| Admin | `admin@pathly.app` |
+| Business | `maya@harbor.demo` |
+| Creator | `jordan@pathly.demo` |
 
-Optional override in `.env`:
+Data persists in `localStorage` (`pathly.mvp.v1`). Use **Reset demo data** in the admin panel to reseed 15 creators + sample campaigns.
 
-```bash
-VITE_WAITLIST_ENDPOINT=https://formspree.io/f/xxxxxxxx
-```
+## Core flows
+
+- **Business:** Sign up → profile → post campaign → get notified when a creator joins → chat
+- **Creator:** Sign up → profile → browse/filter feed → join → chat
+- **Admin:** View users/campaigns, close campaigns, remove users, review reports
+
+## Paths
+
+| Path | Purpose |
+|------|---------|
+| `/` | Landing |
+| `/auth` | Sign up / sign in (email or demo Google) |
+| `/onboarding` | Role + profile setup |
+| `/app/business` | Business campaigns |
+| `/app/campaigns/new` | Post campaign |
+| `/app/feed` | Creator campaign feed |
+| `/app/inbox` | Conversations |
+| `/app/chat/:id` | In-app chat (+ report/block) |
+| `/app/admin` | Admin panel |
+
+## Notes
+
+- Auth, database, and chat are client-side for this MVP (no Bubble / backend required to try the loop).
+- “Email notifications” are simulated in the in-app Alerts panel.
+- Google sign-in is a demo stub (creates a local account).
 
 ## Deploy (Vercel)
 
@@ -38,11 +66,3 @@ VITE_WAITLIST_ENDPOINT=https://formspree.io/f/xxxxxxxx
 4. Deploy — you get a live URL
 
 `vercel.json` already rewrites SPA routes to `index.html`.
-
-## Paths
-
-| Path | Purpose |
-|------|---------|
-| `/` | Landing + Get app waitlist |
-| `/signup/business` | Business signup (optional) |
-| `/signup/creator` | Creator signup (optional) |
