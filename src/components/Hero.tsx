@@ -1,4 +1,5 @@
 import GetAppButton from './GetAppButton'
+import { Link } from 'react-router-dom'
 
 export default function Hero() {
   return (
@@ -12,13 +13,16 @@ export default function Hero() {
             <h1 className="hero__brand" id="hero-brand">
               Pathly
             </h1>
-            <p className="hero__headline">Post the work. Get matched.</p>
+            <p className="hero__headline">Post the work. Start the chat.</p>
             <p className="hero__lede">
-              Local businesses post campaigns. Nearby creators apply. Pathly makes the match — then gets
-              out of the way.
+              Businesses post campaigns. Creators join the ones that fit. Negotiate rate, deliverables,
+              and timeline in-app — on your own terms.
             </p>
             <div className="btn-row">
               <GetAppButton className="btn btn--brand btn--equal" />
+              <Link className="btn btn--ghost btn--equal" to="/auth">
+                Sign in
+              </Link>
             </div>
           </div>
 
@@ -27,14 +31,14 @@ export default function Hero() {
               <span className="tape" />
               <span className="pin pin--brand" style={{ top: '-8px', left: '42%' }} />
               <div className="campaign-card__meta">
-                <span>0.4 mi</span>
-                <span>Cafe</span>
+                <span>Food & drink</span>
+                <span>Instagram</span>
               </div>
               <h2 className="campaign-card__title">Reel + store visit</h2>
               <p style={{ margin: 0, color: 'var(--ink-soft)', fontSize: '0.92rem' }}>
-                Morning rush vibe, 30–45 sec. Product + cash.
+                Morning rush vibe, 30–45 sec. Budget listed up front.
               </p>
-              <span className="campaign-card__offer">$120 + free drinks</span>
+              <span className="campaign-card__offer">$150 budget</span>
             </article>
 
             <article className="note note--tilt-right applicant-chip">
@@ -43,7 +47,7 @@ export default function Hero() {
                 <div className="applicant-chip__avatar">JL</div>
                 <div>
                   <p className="applicant-chip__name">Jordan Lee</p>
-                  <p className="applicant-chip__stats">12.4k · food · 3 collabs</p>
+                  <p className="applicant-chip__stats">5k–15k · food · joined</p>
                 </div>
               </div>
             </article>
@@ -51,12 +55,13 @@ export default function Hero() {
             <div className="whatsapp-handoff">
               <div className="whatsapp-handoff__bar">
                 <span className="whatsapp-handoff__dot" />
-                Message on WhatsApp
+                In-app chat
               </div>
               <div className="whatsapp-handoff__bubble">
-                You’re matched with Harbor Roasters. Deliverable and offer are set — say hi when you’re free.
+                Hi Harbor — I’d love to shoot Saturday morning. My rate for a 40s reel is $150. Does that
+                work?
               </div>
-              <div className="whatsapp-handoff__meta">Handoff · no new inbox</div>
+              <div className="whatsapp-handoff__meta">Join → chat · no agency middleman</div>
             </div>
           </div>
         </div>

@@ -20,13 +20,16 @@ export default function Navbar() {
             <a href="/#creators">Creators</a>
           </li>
           <li>
-            <a href="/#why-whatsapp">Why WhatsApp</a>
+            <a href="/#why-chat">Why chat</a>
           </li>
           <li>
             <a href="/#faq">FAQ</a>
           </li>
         </ul>
         <div className="nav__cta">
+          <Link className="btn btn--ghost" to="/auth">
+            Sign in
+          </Link>
           <GetAppButton className="btn btn--brand" />
         </div>
       </div>

@@ -3,19 +3,19 @@ import { useReveal } from '../hooks/useReveal'
 const faqs = [
   {
     q: 'Is this free? Who pays for what?',
-    a: 'Signing up and browsing is free. The offer on each campaign — cash, product, or both — is what the business pays the creator. Pathly may introduce optional paid tiers for businesses later; pricing won’t hide behind the match.',
+    a: 'Signing up, posting, browsing, and chatting are free in the MVP. The budget on each campaign is what the business intends to pay the creator — negotiated and paid off-platform.',
   },
   {
-    q: 'What happens if a creator doesn’t deliver?',
-    a: 'The deliverable is agreed before WhatsApp. If something falls through, you close the campaign and pick another applicant — Pathly doesn’t auto-assign or hold funds in escrow at launch.',
+    q: 'Does Pathly handle payments?',
+    a: 'Not in v1. There is no escrow or payout tracking. You negotiate and pay on your own terms after connecting in chat.',
   },
   {
-    q: 'Do I need a business Instagram to post a campaign?',
-    a: 'No. You need a way for creators to understand the shop and for the WhatsApp handoff to happen. An Instagram presence helps applicants evaluate fit, but it isn’t required to post.',
+    q: 'What happens after a creator joins?',
+    a: 'Pathly creates a connection and opens an in-app chat between that creator and the business. From there you talk deliverables, rate, and timeline.',
   },
   {
-    q: 'What cities is this live in?',
-    a: 'We’re launching neighborhood by neighborhood, starting with select NYC areas. Coverage expands city by city — check back or sign up and we’ll show what’s available near you.',
+    q: 'How do you handle spam or bad actors?',
+    a: 'Report or block from chat. Admins can view users and campaigns and remove accounts. Terms acceptance is required at sign-up.',
   },
 ]
 

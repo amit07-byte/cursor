@@ -9,9 +9,9 @@ export default function ClosingCTA() {
       <div className={`container ${className}`}>
         <div className="closing-board">
           <p className="section-kicker">Your move</p>
-          <h2 className="section-title">Get the app.</h2>
+          <h2 className="section-title">Open Pathly.</h2>
           <p className="section-lede">
-            Join the waitlist with your name and email. We’ll let you know when Pathly is ready.
+            Post a campaign or join one. Start a real conversation — no agency, no cold DM.
           </p>
           <div className="btn-row" style={{ justifyContent: 'center' }}>
             <GetAppButton className="btn btn--brand btn--equal" />
