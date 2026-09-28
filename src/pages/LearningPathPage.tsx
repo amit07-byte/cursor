@@ -74,14 +74,13 @@ export default function LearningPathPage() {
       <div className="lp-grain" aria-hidden="true" />
       <header className="lp-nav">
         <a className="lp-brand" href="#top" aria-label="Pathly home">
-          <span className="lp-brand-mark" aria-hidden="true">
-            <svg viewBox="0 0 24 24" width="18" height="18">
-              <path
-                fill="currentColor"
-                d="M8 5.14v13.72L19.5 12 8 5.14z"
-              />
-            </svg>
-          </span>
+          <img
+            className="lp-brand-mark"
+            src="/pathly-mark.png"
+            alt=""
+            width={36}
+            height={35}
+          />
           <span className="lp-brand-text">Pathly</span>
         </a>
         <a className="lp-nav-cta" href="#builder">
@@ -103,12 +102,12 @@ export default function LearningPathPage() {
                 <span />
               </div>
               <div className="lp-hero-play">
-                <svg viewBox="0 0 24 24" width="42" height="42">
-                  <path
-                    fill="currentColor"
-                    d="M8 5.14v13.72L19.5 12 8 5.14z"
-                  />
-                </svg>
+                <img
+                  src="/pathly-mark.png"
+                  alt=""
+                  width={96}
+                  height={93}
+                />
               </div>
               <div className="lp-hero-timeline">
                 <i />
@@ -117,9 +116,18 @@ export default function LearningPathPage() {
           </div>
 
           <div className="lp-hero-copy">
-            <h1 id="hero-brand" className="lp-brand-hero">
-              Pathly
-            </h1>
+            <div className="lp-hero-brand-row">
+              <img
+                className="lp-hero-logo"
+                src="/pathly-logo.png"
+                alt=""
+                width={72}
+                height={70}
+              />
+              <h1 id="hero-brand" className="lp-brand-hero">
+                Pathly
+              </h1>
+            </div>
             <p className="lp-hero-headline">
               Turn endless videos into a path that fits how you learn.
             </p>
@@ -469,6 +477,13 @@ export default function LearningPathPage() {
 
       <footer className="lp-footer">
         <p>
+          <img
+            className="lp-footer-mark"
+            src="/pathly-mark.png"
+            alt=""
+            width={22}
+            height={21}
+          />
           <span className="lp-brand-text">Pathly</span> — learn with intention,
           not infinite scroll.
         </p>
