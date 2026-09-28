@@ -1,8 +1,8 @@
 # Pathly
 
-Landing page for **Pathly** — local businesses post campaigns, nearby creators apply, deals move to WhatsApp.
+**YouTube Learning Path Builder** — turn a topic, skill level, and preferences into a sequenced YouTube learning path.
 
-> Post the work. Get matched.
+> Learn with intention, not infinite scroll.
 
 ## Develop
 
@@ -18,24 +18,23 @@ npm run build
 npm run preview
 ```
 
-## Waitlist
+## What it does
 
-The **Get app** button opens a modal. Submissions are emailed to **amrai0583@gmail.com** via [FormSubmit](https://formsubmit.co).
+Fill in:
 
-**First time only:** FormSubmit sends an activation email to that inbox. Click the confirm link once. After that, every signup emails you automatically (name + email).
+- Topic, skill level, and learning goal
+- Video length, teaching style, and creator preferences
+- Weekly time and completion timeline
+- Include / exclude content filters
 
-Optional override in `.env`:
-
-```bash
-VITE_WAITLIST_ENDPOINT=https://formspree.io/f/xxxxxxxx
-```
+Then hit **Generate Learning Path** for a curated multi-week video sequence.
 
 ## Deploy (Vercel)
 
 1. Merge PR → `main`
 2. Import repo at [vercel.com](https://vercel.com/new)
 3. Framework: **Vite** · Build: `npm run build` · Output: `dist`
-4. Deploy — you get a live URL
+4. Deploy
 
 `vercel.json` already rewrites SPA routes to `index.html`.
 
@@ -43,6 +42,4 @@ VITE_WAITLIST_ENDPOINT=https://formspree.io/f/xxxxxxxx
 
 | Path | Purpose |
 |------|---------|
-| `/` | Landing + Get app waitlist |
-| `/signup/business` | Business signup (optional) |
-| `/signup/creator` | Creator signup (optional) |
+| `/` | Learning path builder |
