@@ -191,9 +191,9 @@
 
 .lp-hero-timeline {
   position: absolute;
-  left: 0;
-  right: 0;
-  top: 48%;
+  left: 55%;
+  right: 8%;
+  top: 42%;
   height: 3px;
   background: rgba(255, 255, 255, 0.12);
   overflow: hidden;
