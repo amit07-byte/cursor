@@ -142,10 +142,23 @@ export async function generateCurriculum(
       { signal },
     )
   } catch (error) {
-    const err = new Error(
-      `OpenAI request failed: ${error instanceof Error ? error.message : 'unknown error'}`,
+    const detail =
+      error instanceof Error
+        ? error.message
+        : typeof error === 'object' && error && 'message' in error
+          ? String((error as { message: unknown }).message)
+          : 'unknown error'
+    const status =
+      typeof error === 'object' && error && 'status' in error
+        ? String((error as { status: unknown }).status)
+        : ''
+    const code =
+      typeof error === 'object' && error && 'code' in error
+        ? String((error as { code: unknown }).code)
+        : ''
+    throw new Error(
+      `OpenAI request failed${status ? ` (${status})` : ''}${code ? ` [${code}]` : ''}: ${detail}`,
     )
-    throw err
   }
 
   const content = completion.choices[0]?.message?.content

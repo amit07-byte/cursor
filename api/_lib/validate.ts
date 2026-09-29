@@ -111,11 +111,40 @@ export function publicErrorMessage(error: unknown): { status: number; message: s
   }
 
   const message = error instanceof Error ? error.message : ''
+  const lower = message.toLowerCase()
 
-  if (/timeout|aborted|AbortError/i.test(message)) {
+  if (/timeout|aborted|aborterror/i.test(message)) {
     return {
       status: 504,
       message: 'Path generation timed out. Please try again.',
+    }
+  }
+
+  // OpenAI billing / rate limits — keep guidance actionable without leaking internals
+  if (
+    /insufficient_quota|credit_balance_exhausted|no credits remaining|exceeded your current quota/i.test(
+      message,
+    )
+  ) {
+    return {
+      status: 502,
+      message:
+        'OpenAI reports no API credits remaining. Add credits in your OpenAI billing settings, then try again.',
+    }
+  }
+
+  if (/openai.*\b401\b|\binvalid api key\b|incorrect api key/i.test(lower)) {
+    return {
+      status: 502,
+      message:
+        'OpenAI rejected the API key. Check OPENAI_API_KEY on the server, then try again.',
+    }
+  }
+
+  if (/rate limit|429/.test(lower) && /openai/i.test(message)) {
+    return {
+      status: 429,
+      message: 'OpenAI rate limit reached. Please wait a moment and try again.',
     }
   }
 
