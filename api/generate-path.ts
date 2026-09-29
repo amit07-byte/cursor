@@ -1,5 +1,6 @@
 import type { VercelRequest, VercelResponse } from '@vercel/node'
 import type { GeneratedPath } from '../src/types/learningPath'
+import { loadLocalEnv } from './_lib/loadLocalEnv'
 import { generateCurriculum } from './_lib/openaiCurriculum'
 import {
   HttpError,
@@ -9,6 +10,8 @@ import {
   publicErrorMessage,
 } from './_lib/validate'
 import { findVideosForModules } from './_lib/youtubeSearch'
+
+loadLocalEnv()
 
 export const config = {
   maxDuration: 60,
@@ -78,6 +81,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
   const timeout = setTimeout(() => controller.abort(), REQUEST_TIMEOUT_MS)
 
   try {
+    loadLocalEnv()
     const body = await parseBody(req)
     const form = parseAndValidateForm(body)
 

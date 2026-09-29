@@ -39,6 +39,8 @@ Store secrets in `.env.local` locally and in the Vercel project settings for pro
 
 `.env` / `.env.local` are gitignored. `.env.example` is placeholders only.
 
+For local `vercel dev` with this Vite app, the API also loads `.env.local` as a fallback because Vercel does not always inject those file-based vars into Node serverless functions the way it does for Next.js.
+
 ## How generation works
 
 1. User submits the existing Pathly form
