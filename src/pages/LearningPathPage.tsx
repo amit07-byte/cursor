@@ -2,9 +2,9 @@ import { useId, useState, type FormEvent } from 'react'
 import {
   CREATOR_OPTIONS,
   EXCLUDE_OPTIONS,
-  generateLearningPath,
   GOAL_EXAMPLES,
   INCLUDE_OPTIONS,
+  requestLearningPath,
   TEACHING_STYLE_OPTIONS,
   VIDEO_LENGTH_OPTIONS,
 } from '../lib/generatePath'
@@ -45,7 +45,7 @@ export default function LearningPathPage() {
   const [error, setError] = useState('')
   const [generating, setGenerating] = useState(false)
 
-  function onSubmit(e: FormEvent) {
+  async function onSubmit(e: FormEvent) {
     e.preventDefault()
     if (!form.topic.trim()) {
       setError('Add a topic to generate your path.')
@@ -55,18 +55,29 @@ export default function LearningPathPage() {
       setError('Choose your current skill level.')
       return
     }
+
     setError('')
     setGenerating(true)
-    window.setTimeout(() => {
-      setPath(generateLearningPath(form))
-      setGenerating(false)
+    setPath(null)
+
+    try {
+      const nextPath = await requestLearningPath(form)
+      setPath(nextPath)
       window.requestAnimationFrame(() => {
         document.getElementById('path-results')?.scrollIntoView({
           behavior: 'smooth',
           block: 'start',
         })
       })
-    }, 700)
+    } catch (err) {
+      setError(
+        err instanceof Error
+          ? err.message
+          : 'Could not generate your learning path. Please try again.',
+      )
+    } finally {
+      setGenerating(false)
+    }
   }
 
   return (
@@ -465,9 +476,15 @@ export default function LearningPathPage() {
                 type="submit"
                 className="lp-btn lp-btn-youtube"
                 disabled={generating}
+                aria-busy={generating}
               >
                 {generating ? 'Generating…' : 'Generate Learning Path'}
               </button>
+              {generating ? (
+                <p className="lp-generating" role="status" aria-live="polite">
+                  Building your curriculum and finding YouTube videos…
+                </p>
+              ) : null}
             </div>
           </form>
         </section>

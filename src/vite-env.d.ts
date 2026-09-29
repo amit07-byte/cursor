@@ -1,7 +1,7 @@
 /// <reference types="vite/client" />
 
 interface ImportMetaEnv {
-  readonly VITE_WAITLIST_ENDPOINT?: string
+  // No secret API keys belong here. OpenAI / YouTube keys are server-only.
 }
 
 interface ImportMeta {

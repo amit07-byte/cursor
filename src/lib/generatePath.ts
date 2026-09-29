@@ -1,155 +1,60 @@
 import type {
+  GeneratePathErrorResponse,
   GeneratedPath,
   LearningPathForm,
-  PathVideo,
-  Timeline,
 } from '../types/learningPath'
 
-const TIMELINE_WEEKS: Record<Timeline, number> = {
-  '1 week': 1,
-  '2 weeks': 2,
-  '1 month': 4,
-  '2-3 months': 10,
-  'No rush': 8,
-}
+const REQUEST_TIMEOUT_MS = 60_000
 
-function weeksFromTimeline(timeline: Timeline | ''): number {
-  if (!timeline) return 4
-  return TIMELINE_WEEKS[timeline]
-}
-
-function pickDuration(form: LearningPathForm): string {
-  if (form.videoLengths.includes('Any length') || form.videoLengths.length === 0) {
-    return '22:14'
-  }
-  if (form.videoLengths.includes('Short (5-15 min)')) return '11:32'
-  if (form.videoLengths.includes('Medium (15-45 min)')) return '28:47'
-  return '1:12:05'
-}
-
-function channelFor(form: LearningPathForm, index: number): string {
-  const prefs = form.creatorPreferences
-  if (prefs.includes('University lectures')) {
-    return ['MIT OpenCourseWare', 'Stanford Online', 'HarvardX'][index % 3]
-  }
-  if (prefs.includes('Professional instructors')) {
-    return ['Pro Skill Lab', 'Academy Daily', 'Masterclass Channel'][index % 3]
-  }
-  if (prefs.includes('Self-taught creators')) {
-    return ['Build With Sam', 'Learn By Doing', 'Garage Studio'][index % 3]
-  }
-  return ['Trusted Tutorials', 'Clear Path Media', 'Skill Signal'][index % 3]
-}
-
-function videoType(
+export async function requestLearningPath(
   form: LearningPathForm,
-  index: number,
-): PathVideo['type'] {
-  if (form.includeFilters.includes('Project tutorials') && index % 4 === 3) {
-    return 'project'
-  }
-  if (
-    form.includeFilters.includes('Practice exercises/assignments') &&
-    index % 3 === 2
-  ) {
-    return 'practice'
-  }
-  if (form.videoLengths.includes('Long (45+ min)') && index % 5 === 4) {
-    return 'deep-dive'
-  }
-  return 'core'
-}
+): Promise<GeneratedPath> {
+  const controller = new AbortController()
+  const timeout = window.setTimeout(() => controller.abort(), REQUEST_TIMEOUT_MS)
 
-export function generateLearningPath(form: LearningPathForm): GeneratedPath {
-  const topic = form.topic.trim() || 'your topic'
-  const weeks = weeksFromTimeline(form.timeline)
-  const level = form.skillLevel || 'Complete Beginner'
-  const duration = pickDuration(form)
-  const styles = form.teachingStyles
-  const styleHint =
-    styles[0]?.replace(/ \(.*\)/, '') || 'clear, practical teaching'
+  try {
+    const response = await fetch('/api/generate-path', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(form),
+      signal: controller.signal,
+    })
 
-  const templates = [
-    {
-      title: `${topic} Foundations — Start Here`,
-      reason: `Matches your ${level.toLowerCase()} level and sets vocabulary you’ll reuse all path.`,
-    },
-    {
-      title: `Core Concepts in ${topic}`,
-      reason: `Uses a ${styleHint.toLowerCase()} approach aligned with your preferences.`,
-    },
-    {
-      title: `${topic} Walkthrough: First Real Application`,
-      reason: form.learningGoal
-        ? `Points toward your goal: “${form.learningGoal.slice(0, 72)}${form.learningGoal.length > 72 ? '…' : ''}”`
-        : 'Builds transferable skill through a concrete example.',
-    },
-    {
-      title: `Common Mistakes When Learning ${topic}`,
-      reason: 'Filters fluff and clickbait-style rabbit holes so you stay on track.',
-    },
-    {
-      title: `${topic} Practice Session`,
-      reason: form.includeFilters.includes('Practice exercises/assignments')
-        ? 'Includes exercises you can pause and complete.'
-        : 'Reinforces earlier lessons with guided reps.',
-    },
-    {
-      title: `Project: Apply ${topic}`,
-      reason: form.includeFilters.includes('Project tutorials')
-        ? 'Project-based build-along matched to your creator preferences.'
-        : 'Turns theory into something you can show.',
-    },
-    {
-      title: `${topic} Deep Dive`,
-      reason: 'Longer cut for nuance once basics are stable.',
-    },
-    {
-      title: `Next-Level ${topic} Techniques`,
-      reason: 'Fills intermediate gaps without restarting from zero.',
-    },
-  ]
+    const data = (await response.json().catch(() => null)) as
+      | GeneratedPath
+      | GeneratePathErrorResponse
+      | null
 
-  const videosNeeded = Math.min(Math.max(weeks * 2, 4), templates.length)
-  const videos: PathVideo[] = templates.slice(0, videosNeeded).map((t, i) => ({
-    id: `v-${i + 1}`,
-    title: t.title,
-    channel: channelFor(form, i),
-    duration,
-    week: Math.min(weeks, Math.floor(i / 2) + 1),
-    reason: t.reason,
-    type: videoType(form, i),
-  }))
+    if (!response.ok) {
+      const message =
+        data && 'error' in data && typeof data.error === 'string'
+          ? data.error
+          : 'Could not generate your learning path. Please try again.'
+      throw new Error(message)
+    }
 
-  const excludeNotes: string[] = []
-  if (form.excludeFilters.includes('Videos over X years old')) {
-    excludeNotes.push(`prefer content newer than ${form.maxVideoAgeYears} years`)
-  }
-  if (form.excludeFilters.includes('Clickbait titles')) {
-    excludeNotes.push('skip clickbait titles')
-  }
-  if (form.excludeFilters.includes('Low production quality')) {
-    excludeNotes.push('favor clearer production')
-  }
-  if (form.excludeFilters.includes('Non-English')) {
-    excludeNotes.push(
-      form.preferredLanguage
-        ? `prefer ${form.preferredLanguage}`
-        : 'English-first',
-    )
-  }
+    if (
+      !data ||
+      !('videos' in data) ||
+      !Array.isArray(data.videos) ||
+      typeof data.title !== 'string'
+    ) {
+      throw new Error('Received an invalid learning path from the server.')
+    }
 
-  const filterLine =
-    excludeNotes.length > 0
-      ? ` Filtered to ${excludeNotes.join(', ')}.`
-      : ''
-
-  return {
-    title: `Your ${topic} path`,
-    summary: `A ${weeks}-week route for a ${level.toLowerCase()}, paced at ${form.timePerWeek || 'a flexible'} weekly commitment.${filterLine}`,
-    weeks,
-    hoursPerWeek: form.timePerWeek || 'Flexible',
-    videos,
+    return data
+  } catch (error) {
+    if (error instanceof DOMException && error.name === 'AbortError') {
+      throw new Error('Path generation timed out. Please try again.')
+    }
+    if (error instanceof TypeError) {
+      throw new Error(
+        'Could not reach the Pathly API. If you are developing locally, run with `vercel dev` and set OPENAI_API_KEY and YOUTUBE_API_KEY.',
+      )
+    }
+    throw error
+  } finally {
+    window.clearTimeout(timeout)
   }
 }
 

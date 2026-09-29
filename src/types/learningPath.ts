@@ -45,6 +45,8 @@ export type IncludeFilter =
   | 'Quizzes/assessments'
   | 'Downloadable resources'
 
+export type PathVideoType = 'core' | 'practice' | 'project' | 'deep-dive'
+
 export interface LearningPathForm {
   topic: string
   skillLevel: SkillLevel | ''
@@ -67,7 +69,17 @@ export interface PathVideo {
   duration: string
   week: number
   reason: string
-  type: 'core' | 'practice' | 'project' | 'deep-dive'
+  type: PathVideoType
+  /** YouTube video id from Data API (when available) */
+  videoId?: string
+  /** Watch URL from YouTube (when available) */
+  url?: string
+  /** Thumbnail URL from YouTube (when available) */
+  thumbnail?: string
+  /** Optional short description from YouTube */
+  description?: string
+  /** Curriculum module title this video belongs to */
+  moduleTitle?: string
 }
 
 export interface GeneratedPath {
@@ -76,4 +88,13 @@ export interface GeneratedPath {
   weeks: number
   hoursPerWeek: string
   videos: PathVideo[]
+  modules?: Array<{
+    title: string
+    week: number
+    type: PathVideoType
+  }>
+}
+
+export interface GeneratePathErrorResponse {
+  error: string
 }
