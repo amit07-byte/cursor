@@ -105,4 +105,4 @@ Notifications can be read and marked read by their owner. Inserts are left to a 
 
 ## Deploy
 
-The app is a standard Next.js App Router project and can be imported on Vercel. Set the same two environment variables in the Vercel project settings.
+The app is a Next.js App Router project. `vercel.json` sets the Vercel framework to Next.js. Set the same two environment variables in the Vercel project settings.
