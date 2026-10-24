@@ -1,6 +1,6 @@
 # Pathly
 
-**YouTube Learning Path Builder** — turn a topic, skill level, and preferences into a sequenced YouTube learning path powered by OpenAI + YouTube Data API v3.
+**YouTube Learning Path Builder** — turn a topic, skill level, and preferences into a sequenced YouTube learning path powered by Gemini + YouTube Data API v3.
 
 > Learn with intention, not infinite scroll.
 
@@ -9,7 +9,7 @@
 ```bash
 npm install
 cp .env.example .env.local
-# Add OPENAI_API_KEY and YOUTUBE_API_KEY to .env.local (server-side only)
+# Add GEMINI_API_KEY and YOUTUBE_API_KEY to .env.local (server-side only)
 npx vercel dev
 ```
 
@@ -28,13 +28,19 @@ npm run build
 npm run preview
 ```
 
+## Test
+
+```bash
+npm test
+```
+
 ## Environment variables
 
 Store secrets in `.env.local` locally and in the Vercel project settings for production:
 
 | Variable | Where used | Notes |
 |----------|------------|-------|
-| `OPENAI_API_KEY` | `/api/generate-path` only | Never use a `VITE_` prefix |
+| `GEMINI_API_KEY` | `/api/generate-path` only | Never use a `VITE_` prefix |
 | `YOUTUBE_API_KEY` | `/api/generate-path` only | Never use a `VITE_` prefix |
 
 `.env` / `.env.local` are gitignored. `.env.example` is placeholders only.
@@ -45,7 +51,7 @@ For local `vercel dev` with this Vite app, the API also loads `.env.local` as a 
 
 1. User submits the existing Pathly form
 2. Frontend `POST`s to `/api/generate-path`
-3. Server uses OpenAI to build a sequential curriculum
+3. Server uses Gemini (`gemini-2.0-flash`) to build a sequential curriculum
 4. Server searches YouTube Data API v3 for each module
 5. Structured `GeneratedPath` JSON is returned and rendered by `PathResults`
 
@@ -54,7 +60,7 @@ For local `vercel dev` with this Vite app, the API also loads `.env.local` as a 
 1. Merge PR → `main`
 2. Import repo at [vercel.com](https://vercel.com/new)
 3. Framework: **Vite** · Build: `npm run build` · Output: `dist`
-4. Add `OPENAI_API_KEY` and `YOUTUBE_API_KEY` in Project → Settings → Environment Variables
+4. Add `GEMINI_API_KEY` and `YOUTUBE_API_KEY` in Project → Settings → Environment Variables
 5. Deploy
 
 `vercel.json` rewrites SPA routes to `index.html` while leaving `/api/*` to serverless functions.
@@ -64,4 +70,4 @@ For local `vercel dev` with this Vite app, the API also loads `.env.local` as a 
 | Path | Purpose |
 |------|---------|
 | `/` | Learning path builder UI |
-| `POST /api/generate-path` | OpenAI + YouTube path generation |
+| `POST /api/generate-path` | Gemini + YouTube path generation |

@@ -1,4 +1,3 @@
-import OpenAI from 'openai'
 import type { LearningPathForm, PathVideoType } from '../../src/types/learningPath'
 import { HttpError, MAX_MODULES, isPathVideoType } from './validate'
 
@@ -18,7 +17,12 @@ export interface CurriculumPlan {
   modules: CurriculumModule[]
 }
 
-function buildPrompt(form: LearningPathForm): string {
+export const CURRICULUM_JSON_SCHEMA_HINT =
+  '{"title":string,"summary":string,"weeks":number,"hoursPerWeek":string,"modules":[{"title":string,"week":number,"type":"core"|"practice"|"project"|"deep-dive","reason":string,"searchQuery":string}]}'
+
+export const CURRICULUM_SYSTEM_INSTRUCTION = `You are Pathly, an expert curriculum designer. Reply with JSON only matching: ${CURRICULUM_JSON_SCHEMA_HINT}`
+
+export function buildCurriculumPrompt(form: LearningPathForm): string {
   return [
     'Create a sequential YouTube learning curriculum as JSON.',
     'The learner form data:',
@@ -53,7 +57,35 @@ function buildPrompt(form: LearningPathForm): string {
   ].join('\n')
 }
 
-function normalizeCurriculum(raw: unknown, form: LearningPathForm): CurriculumPlan {
+/** Strip optional markdown fences before JSON.parse. */
+export function extractJsonText(raw: string): string {
+  const trimmed = raw.trim()
+  const fenced = trimmed.match(/^```(?:json)?\s*([\s\S]*?)\s*```$/i)
+  return fenced ? fenced[1].trim() : trimmed
+}
+
+export function parseCurriculumJson(
+  content: string,
+  form: LearningPathForm,
+): CurriculumPlan {
+  if (!content.trim()) {
+    throw new HttpError(502, 'Curriculum provider returned an empty curriculum.')
+  }
+
+  let parsed: unknown
+  try {
+    parsed = JSON.parse(extractJsonText(content))
+  } catch {
+    throw new HttpError(502, 'Curriculum provider returned non-JSON curriculum data.')
+  }
+
+  return normalizeCurriculum(parsed, form)
+}
+
+export function normalizeCurriculum(
+  raw: unknown,
+  form: LearningPathForm,
+): CurriculumPlan {
   if (!raw || typeof raw !== 'object' || Array.isArray(raw)) {
     throw new HttpError(502, 'Curriculum response was invalid.')
   }
@@ -110,68 +142,4 @@ function normalizeCurriculum(raw: unknown, form: LearningPathForm): CurriculumPl
         : form.timePerWeek || 'Flexible',
     modules,
   }
-}
-
-export async function generateCurriculum(
-  form: LearningPathForm,
-  signal?: AbortSignal,
-): Promise<CurriculumPlan> {
-  const apiKey = process.env.OPENAI_API_KEY
-  if (!apiKey) {
-    throw new HttpError(500, 'OpenAI is not configured on the server.')
-  }
-
-  const client = new OpenAI({ apiKey })
-
-  let completion: OpenAI.Chat.Completions.ChatCompletion
-  try {
-    completion = await client.chat.completions.create(
-      {
-        model: 'gpt-4o-mini',
-        temperature: 0.4,
-        response_format: { type: 'json_object' },
-        messages: [
-          {
-            role: 'system',
-            content:
-              'You are Pathly, an expert curriculum designer. Reply with JSON only matching: {"title":string,"summary":string,"weeks":number,"hoursPerWeek":string,"modules":[{"title":string,"week":number,"type":"core"|"practice"|"project"|"deep-dive","reason":string,"searchQuery":string}]}',
-          },
-          { role: 'user', content: buildPrompt(form) },
-        ],
-      },
-      { signal },
-    )
-  } catch (error) {
-    const detail =
-      error instanceof Error
-        ? error.message
-        : typeof error === 'object' && error && 'message' in error
-          ? String((error as { message: unknown }).message)
-          : 'unknown error'
-    const status =
-      typeof error === 'object' && error && 'status' in error
-        ? String((error as { status: unknown }).status)
-        : ''
-    const code =
-      typeof error === 'object' && error && 'code' in error
-        ? String((error as { code: unknown }).code)
-        : ''
-    throw new Error(
-      `OpenAI request failed${status ? ` (${status})` : ''}${code ? ` [${code}]` : ''}: ${detail}`,
-    )
-  }
-
-  const content = completion.choices[0]?.message?.content
-  if (!content) {
-    throw new HttpError(502, 'OpenAI returned an empty curriculum.')
-  }
-
-  let parsed: unknown
-  try {
-    parsed = JSON.parse(content)
-  } catch {
-    throw new HttpError(502, 'OpenAI returned non-JSON curriculum data.')
-  }
-
-  return normalizeCurriculum(parsed, form)
 }

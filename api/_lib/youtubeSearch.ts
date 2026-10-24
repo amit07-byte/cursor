@@ -1,5 +1,5 @@
 import type { LearningPathForm, PathVideo } from '../../src/types/learningPath'
-import type { CurriculumModule } from './openaiCurriculum'
+import type { CurriculumModule } from './curriculum'
 import {
   HttpError,
   VIDEOS_PER_MODULE,

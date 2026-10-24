@@ -16,5 +16,6 @@
     "noFallthroughCasesInSwitch": true,
     "types": ["node"]
   },
-  "include": ["api/**/*.ts", "src/types/learningPath.ts"]
+  "include": ["api/**/*.ts", "src/types/learningPath.ts"],
+  "exclude": ["api/**/*.test.ts"]
 }

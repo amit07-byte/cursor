@@ -1,7 +1,7 @@
 import type { VercelRequest, VercelResponse } from '@vercel/node'
 import type { GeneratedPath } from '../src/types/learningPath'
+import { generateCurriculum } from './_lib/geminiCurriculum'
 import { loadLocalEnv } from './_lib/loadLocalEnv'
-import { generateCurriculum } from './_lib/openaiCurriculum'
 import {
   HttpError,
   MAX_BODY_BYTES,
@@ -85,10 +85,10 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
     const body = await parseBody(req)
     const form = parseAndValidateForm(body)
 
-    if (!process.env.OPENAI_API_KEY || !process.env.YOUTUBE_API_KEY) {
+    if (!process.env.GEMINI_API_KEY || !process.env.YOUTUBE_API_KEY) {
       throw new HttpError(
         500,
-        'Path generation is not configured. Add OPENAI_API_KEY and YOUTUBE_API_KEY on the server.',
+        'Path generation is not configured. Add GEMINI_API_KEY and YOUTUBE_API_KEY on the server.',
       )
     }
 

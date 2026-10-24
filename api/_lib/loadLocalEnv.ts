@@ -8,7 +8,7 @@ import { resolve } from 'node:path'
  * Existing process.env values are never overwritten.
  */
 export function loadLocalEnv(): void {
-  if (process.env.OPENAI_API_KEY && process.env.YOUTUBE_API_KEY) {
+  if (process.env.GEMINI_API_KEY && process.env.YOUTUBE_API_KEY) {
     return
   }
 

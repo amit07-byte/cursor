@@ -49,7 +49,7 @@ export async function requestLearningPath(
     }
     if (error instanceof TypeError) {
       throw new Error(
-        'Could not reach the Pathly API. If you are developing locally, run with `vercel dev` and set OPENAI_API_KEY and YOUTUBE_API_KEY.',
+        'Could not reach the Pathly API. If you are developing locally, run with `vercel dev` and set GEMINI_API_KEY and YOUTUBE_API_KEY.',
       )
     }
     throw error

@@ -120,35 +120,39 @@ export function publicErrorMessage(error: unknown): { status: number; message: s
     }
   }
 
-  // OpenAI billing / rate limits — keep guidance actionable without leaking internals
+  // Gemini quota / auth — keep guidance actionable without leaking internals
   if (
-    /insufficient_quota|credit_balance_exhausted|no credits remaining|exceeded your current quota/i.test(
+    /resource_exhausted|quota exceeded|exceeded your current quota|billing|no credits remaining/i.test(
       message,
     )
   ) {
     return {
       status: 502,
       message:
-        'OpenAI reports no API credits remaining. Add credits in your OpenAI billing settings, then try again.',
+        'Gemini API quota was exceeded. Check your Google AI Studio quota or billing, then try again.',
     }
   }
 
-  if (/openai.*\b401\b|\binvalid api key\b|incorrect api key/i.test(lower)) {
+  if (
+    /gemini.*\b401\b|gemini.*\b403\b|api key not valid|invalid api key|permission.?denied/i.test(
+      lower,
+    )
+  ) {
     return {
       status: 502,
       message:
-        'OpenAI rejected the API key. Check OPENAI_API_KEY on the server, then try again.',
+        'Gemini rejected the API key. Check GEMINI_API_KEY on the server, then try again.',
     }
   }
 
-  if (/rate limit|429/.test(lower) && /openai/i.test(message)) {
+  if (/rate limit|429/.test(lower) && /gemini/i.test(message)) {
     return {
       status: 429,
-      message: 'OpenAI rate limit reached. Please wait a moment and try again.',
+      message: 'Gemini rate limit reached. Please wait a moment and try again.',
     }
   }
 
-  if (/openai|OPENAI/i.test(message)) {
+  if (/gemini|GEMINI/i.test(message)) {
     return {
       status: 502,
       message: 'Could not generate a curriculum right now. Please try again shortly.',
