@@ -1,13 +1,23 @@
 # Pathly
 
-Landing page for **Pathly** — local businesses post campaigns, nearby creators apply, deals move to WhatsApp.
+**YouTube Learning Path Builder** — turn a topic, skill level, and preferences into a sequenced YouTube learning path powered by Gemini + YouTube Data API v3.
 
-> Post the work. Get matched.
+> Learn with intention, not infinite scroll.
 
 ## Develop
 
 ```bash
 npm install
+cp .env.example .env.local
+# Add GEMINI_API_KEY and YOUTUBE_API_KEY to .env.local (server-side only)
+npx vercel dev
+```
+
+`vercel dev` serves the Vite frontend and `POST /api/generate-path` together.
+
+Frontend-only UI work (no API):
+
+```bash
 npm run dev
 ```
 
@@ -18,31 +28,46 @@ npm run build
 npm run preview
 ```
 
-## Waitlist
-
-The **Get app** button opens a modal. Submissions are emailed to **amrai0583@gmail.com** via [FormSubmit](https://formsubmit.co).
-
-**First time only:** FormSubmit sends an activation email to that inbox. Click the confirm link once. After that, every signup emails you automatically (name + email).
-
-Optional override in `.env`:
+## Test
 
 ```bash
-VITE_WAITLIST_ENDPOINT=https://formspree.io/f/xxxxxxxx
+npm test
 ```
+
+## Environment variables
+
+Store secrets in `.env.local` locally and in the Vercel project settings for production:
+
+| Variable | Where used | Notes |
+|----------|------------|-------|
+| `GEMINI_API_KEY` | `/api/generate-path` only | Never use a `VITE_` prefix |
+| `YOUTUBE_API_KEY` | `/api/generate-path` only | Never use a `VITE_` prefix |
+
+`.env` / `.env.local` are gitignored. `.env.example` is placeholders only.
+
+For local `vercel dev` with this Vite app, the API also loads `.env.local` as a fallback because Vercel does not always inject those file-based vars into Node serverless functions the way it does for Next.js.
+
+## How generation works
+
+1. User submits the existing Pathly form
+2. Frontend `POST`s to `/api/generate-path`
+3. Server uses Gemini (`gemini-3.8-flash`) to build a sequential curriculum
+4. Server searches YouTube Data API v3 for each module
+5. Structured `GeneratedPath` JSON is returned and rendered by `PathResults`
 
 ## Deploy (Vercel)
 
 1. Merge PR → `main`
 2. Import repo at [vercel.com](https://vercel.com/new)
 3. Framework: **Vite** · Build: `npm run build` · Output: `dist`
-4. Deploy — you get a live URL
+4. Add `GEMINI_API_KEY` and `YOUTUBE_API_KEY` in Project → Settings → Environment Variables
+5. Deploy
 
-`vercel.json` already rewrites SPA routes to `index.html`.
+`vercel.json` rewrites SPA routes to `index.html` while leaving `/api/*` to serverless functions.
 
 ## Paths
 
 | Path | Purpose |
 |------|---------|
-| `/` | Landing + Get app waitlist |
-| `/signup/business` | Business signup (optional) |
-| `/signup/creator` | Creator signup (optional) |
+| `/` | Learning path builder UI |
+| `POST /api/generate-path` | Gemini + YouTube path generation |
