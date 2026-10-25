@@ -51,7 +51,7 @@ For local `vercel dev` with this Vite app, the API also loads `.env.local` as a 
 
 1. User submits the existing Pathly form
 2. Frontend `POST`s to `/api/generate-path`
-3. Server uses Gemini (`gemini-2.0-flash`) to build a sequential curriculum
+3. Server uses Gemini (`gemini-3.8-flash`) to build a sequential curriculum
 4. Server searches YouTube Data API v3 for each module
 5. Structured `GeneratedPath` JSON is returned and rendered by `PathResults`
 

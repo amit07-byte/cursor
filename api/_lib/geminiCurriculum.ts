@@ -9,7 +9,7 @@ import {
 import { HttpError } from './validate'
 
 /** Stable free-tier friendly Gemini Flash model. */
-export const GEMINI_CURRICULUM_MODEL = 'gemini-2.0-flash'
+export const GEMINI_CURRICULUM_MODEL = 'gemini-3.8-flash'
 
 export async function generateCurriculum(
   form: LearningPathForm,
